@@ -3,6 +3,8 @@
 
 This module is an extension of the [MagicMirror<sup>2</sup>](https://github.com/MichMich/MagicMirror) project by [MichMich](https://github.com/MichMich/).
 
+![English version](screenshot_en.png)
+
 ## Installation
 1. Navigate into your MagicMirror's `modules` folder.
 2. Execute `git clone https://github.com/skastenholz/MMM-DVB.git`.
