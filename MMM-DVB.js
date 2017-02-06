@@ -43,8 +43,9 @@ Module.register("MMM-DVB",{
 		if(connections.length > 0) {
 			table.appendChild(this.connectionTableHeaderRow());
 	                table.appendChild(this.connectionTableSpacerRow());
+			var self = this;
 	                connections.forEach(function(connection) {
-        	                table.appendChild(this.connectionTableConnectionRow(connection));
+        	                table.appendChild(self.connectionTableConnectionRow(connection));
                 	});
 		} else {
 			table.appendChild(this.connectionTableNoConnectionRow());
