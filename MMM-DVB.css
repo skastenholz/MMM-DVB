@@ -1,0 +1,35 @@
+.MMM-DVB .table {
+	border-collapse: separate;
+	border-spacing: 0 0;
+	text-align: left;
+}
+
+.MMM-DVB .spacerRow {
+	padding-bottom: 5px;
+}
+
+.MMM-DVB .destination {
+	color: white;
+	font-weight: normal;
+}
+	
+.MMM-DVB .line {
+	border-collapse: separate;
+	border-spacing: 10px 0;
+	color:white;
+	font-weight: normal;
+	text-align: left;
+	width: 50px;
+}
+	
+.MMM-DVB .departure {
+	color: white;
+	font-weight: normal;
+	padding-left: 10px;
+	text-align: right;
+}
+	
+.MMM-DVB .noTramRow {
+	color: white;
+	font-weight: normal;
+}

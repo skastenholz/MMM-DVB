@@ -1,0 +1,34 @@
+{
+  "name": "MMM-DVB",
+  "version": "0.0.1",
+  "description": "MagicMirror² module - station monitor for the Dresden public transport system (DVB)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skastenholz/MMM-DVB.git"
+  },
+  "keywords": [
+    "MagicMirror",
+    "DVB",
+    "VVO",
+    "Dresden",
+    "magic mirror",
+    "smart mirror",
+    "public transport",
+    "local transit"
+  ],
+  "author": "skastenholz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/skastenholz/MMM-DVB/issues"
+  },
+  "homepage": "https://github.com/skastenholz/MMM-DVB#readme",
+  "dependencies": {
+    "dvbjs": "^4.2.1"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-csslint": "^2.0.0",
+    "grunt-contrib-jshint": "^1.1.0"
+  }
+}
