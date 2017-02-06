@@ -1,4 +1,4 @@
-# MMM-DVB
+# MMM-DVB  [![Build](https://travis-ci.org/skastenholz/MMM-DVB.svg)](https://travis-ci.org/skastenholz/MMM-DVB)
 <B>Station monitor</B> for the <B>Dresden local transport (DVB)</B> bus, tram and train system.<P>
 
 This module is an extension of the [MagicMirror<sup>2</sup>](https://github.com/MichMich/MagicMirror) project by [MichMich](https://github.com/MichMich/).
