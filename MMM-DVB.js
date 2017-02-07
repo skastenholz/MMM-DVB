@@ -1,164 +1,164 @@
-Module.register("MMM-DVB",{
+Module.register("MMM-DVB", {
 
-	defaults: {
-		stopName: "Hauptbahnhof", // name of the stop
-		timeOffset: 0, // how many minutes in the future
-		resultNum: 5, // number of displayed results
-		reload: 1 * 60 * 1000 // reload interval, every minute
-	},
+    defaults: {
+        stopName: "Hauptbahnhof", // name of the stop
+        timeOffset: 0, // how many minutes in the future
+        resultNum: 5, // number of displayed results
+        reload: 1 * 60 * 1000 // reload interval, every minute
+    },
 
-	getTranslations: function() {
-		return {
-			en: "translations/en.json",
-			de: "translations/de.json"
-		};
-	},
+    getTranslations: function() {
+        return {
+            en: "translations/en.json",
+            de: "translations/de.json"
+        };
+    },
 
-	getStyles: function() {
-		return ["MMM-DVB.css"];
-	},
+    getStyles: function() {
+        return ["MMM-DVB.css"];
+    },
 
-	getDom: function() {
-        	var wrapper = document.createElement("div");
-		wrapper.appendChild(this.header());
-		if(this.dvb_data) {
-			wrapper.appendChild(this.connectionTable(this.dvb_data));
-		} else {
-			wrapper.appendChild(this.loader());
-		}
-        	return wrapper;
-	},
+    getDom: function() {
+        var wrapper = document.createElement("div");
+        wrapper.appendChild(this.header());
+        if (this.dvb_data) {
+            wrapper.appendChild(this.connectionTable(this.dvb_data));
+        } else {
+            wrapper.appendChild(this.loader());
+        }
+        return wrapper;
+    },
 
-	header: function() {
-		var header = document.createElement("header");
-		header.innerHTML = this.config.stopName;
-		return header;
-	},
+    header: function() {
+        var header = document.createElement("header");
+        header.innerHTML = this.config.stopName;
+        return header;
+    },
 
-	connectionTable: function(connections) {
-		var table = document.createElement("table");
-		table.classList.add("small", "table");
-		table.border='0';
-		
-		if(connections.length > 0) {
-			table.appendChild(this.connectionTableHeaderRow());
-	                table.appendChild(this.connectionTableSpacerRow());
-			var self = this;
-	                connections.forEach(function(connection) {
-        	                table.appendChild(self.connectionTableConnectionRow(connection));
-                	});
-		} else {
-			table.appendChild(this.connectionTableNoConnectionRow());
-		}
-		return table;
-	},
+    connectionTable: function(connections) {
+        var table = document.createElement("table");
+        table.classList.add("small", "table");
+        table.border = '0';
 
-	connectionTableHeaderRow: function() {
-		var headerRow = document.createElement("tr");
-		headerRow.appendChild(this.connectionTableHeader("LINE"));
-		headerRow.appendChild(this.connectionTableHeader("DESTINATION"));
-		headerRow.appendChild(this.connectionTableHeader("DEPARTURE"));
-		return headerRow;
-	},
+        if (connections.length > 0) {
+            table.appendChild(this.connectionTableHeaderRow());
+            table.appendChild(this.connectionTableSpacerRow());
+            var self = this;
+            connections.forEach(function(connection) {
+                table.appendChild(self.connectionTableConnectionRow(connection));
+            });
+        } else {
+            table.appendChild(this.connectionTableNoConnectionRow());
+        }
+        return table;
+    },
 
-	connectionTableHeader: function(caption) {
-		var header = document.createElement("th");
-		header.className = caption;
-		header.innerHTML = this.translate(caption);
-		return header;
-	},
+    connectionTableHeaderRow: function() {
+        var headerRow = document.createElement("tr");
+        headerRow.appendChild(this.connectionTableHeader("LINE"));
+        headerRow.appendChild(this.connectionTableHeader("DESTINATION"));
+        headerRow.appendChild(this.connectionTableHeader("DEPARTURE"));
+        return headerRow;
+    },
 
-	connectionTableSpacerRow: function() {
-        	var spacerRow = document.createElement("tr");
-		var spacerHeader = document.createElement("th");
-		spacerHeader.className = "spacerRow";
-		spacerHeader.setAttribute("colSpan", "3");
-		spacerHeader.innerHTML = "";
-		spacerRow.appendChild(spacerHeader); 
-		return spacerRow;
-	},
+    connectionTableHeader: function(caption) {
+        var header = document.createElement("th");
+        header.className = caption;
+        header.innerHTML = this.translate(caption);
+        return header;
+    },
 
-	connectionTableConnectionRow: function(connection) {
-		
-		var connectionRow = document.createElement("tr");
+    connectionTableSpacerRow: function() {
+        var spacerRow = document.createElement("tr");
+        var spacerHeader = document.createElement("th");
+        spacerHeader.className = "spacerRow";
+        spacerHeader.setAttribute("colSpan", "3");
+        spacerHeader.innerHTML = "";
+        spacerRow.appendChild(spacerHeader);
+        return spacerRow;
+    },
 
-	        var line = document.createElement("td");
-		line.className = "line";
-        	line.innerHTML = connection.line;
-		connectionRow.appendChild(line);
+    connectionTableConnectionRow: function(connection) {
 
-	        var destination = document.createElement("td");
-        	destination.innerHTML = connection.direction;
-		connectionRow.appendChild(destination);
+        var connectionRow = document.createElement("tr");
 
-		var departure = document.createElement("td");
-		departure.className = "departure";
-		departure.innerHTML = this.arrivalTime(connection);
-		connectionRow.appendChild(departure);
+        var line = document.createElement("td");
+        line.className = "line";
+        line.innerHTML = connection.line;
+        connectionRow.appendChild(line);
 
-		return connectionRow;
-	},
+        var destination = document.createElement("td");
+        destination.innerHTML = connection.direction;
+        connectionRow.appendChild(destination);
 
-	arrivalTime: function(connection) {
+        var departure = document.createElement("td");
+        departure.className = "departure";
+        departure.innerHTML = this.arrivalTime(connection);
+        connectionRow.appendChild(departure);
 
-		if(connection.arrivalTimeRelative === 0) {
-			return this.translate("NOW");
-		} else if(connection.arrivalTimeRelative === 1) {
-			return 'In ' + connection.arrivalTimeRelative + ' ' + this.translate("MINUTE");
-		} else if(connection.arrivalTimeRelative <= 15) {
-			return 'In ' + connection.arrivalTimeRelative + ' ' + this.translate("MINUTES");
-		} else {
-			var arrival = new Date(connection.arrivalTime);
-			var arrivalHours = ('0' + arrival.getHours()).slice(-2);
-			var arrivalMinutes = ('0' + arrival.getMinutes()).slice(-2);
-			return arrivalHours + ':' + arrivalMinutes + ' ' + this.translate("TIME");
-		}
-	},
+        return connectionRow;
+    },
 
-	connectionTableNoConnectionRow: function() {
-		
-		var noConnectionRow = document.createElement("tr");
-		
-		var noConnection = document.createElement("td");
-		noConnection.className = "noTramRow";
-		noConnection.setAttribute("colSpan", "3");
-		noConnection.innerHTML = this.translate("NO-TRAMS");
-		noConnectionRow.appendChild(noConnection);
+    arrivalTime: function(connection) {
 
-		return noConnectionRow;
-	},
+        if (connection.arrivalTimeRelative === 0) {
+            return this.translate("NOW");
+        } else if (connection.arrivalTimeRelative === 1) {
+            return 'In ' + connection.arrivalTimeRelative + ' ' + this.translate("MINUTE");
+        } else if (connection.arrivalTimeRelative <= 15) {
+            return 'In ' + connection.arrivalTimeRelative + ' ' + this.translate("MINUTES");
+        } else {
+            var arrival = new Date(connection.arrivalTime);
+            var arrivalHours = ('0' + arrival.getHours()).slice(-2);
+            var arrivalMinutes = ('0' + arrival.getMinutes()).slice(-2);
+            return arrivalHours + ':' + arrivalMinutes + ' ' + this.translate("TIME");
+        }
+    },
 
-	loader: function() {
-		var loader = document.createElement("div");
-		loader.innerHTML = this.translate("LOADING");
-		loader.className = "small dimmed";
-		return loader;
-	},
+    connectionTableNoConnectionRow: function() {
 
-	start: function () {		
-		Log.info("Starting module: " + this.name);
-		this.request(this);
-		setInterval(this.request, this.config.reload, this);
-	},
+        var noConnectionRow = document.createElement("tr");
 
-	request: function(self) {
-		
-		var request = { 
-			id: self.identifier,
-			stopName: self.config.stopName,
-			timeOffset: self.config.timeOffset,
-			resultNum: self.config.resultNum
-		};
-		Log.log("Request: " + JSON.stringify(request));
-		self.sendSocketNotification("DVB-REQUEST", request);
-	},
+        var noConnection = document.createElement("td");
+        noConnection.className = "noTramRow";
+        noConnection.setAttribute("colSpan", "3");
+        noConnection.innerHTML = this.translate("NO-TRAMS");
+        noConnectionRow.appendChild(noConnection);
 
-	socketNotificationReceived: function(notification, payload) {
-		if (notification === "DVB-RESPONSE" && payload.id === this.identifier) {
-			Log.log("Response: " + JSON.stringify(payload));
-			this.dvb_data = payload.connections;
-			this.updateDom();
-		}
-	}
+        return noConnectionRow;
+    },
+
+    loader: function() {
+        var loader = document.createElement("div");
+        loader.innerHTML = this.translate("LOADING");
+        loader.className = "small dimmed";
+        return loader;
+    },
+
+    start: function() {
+        Log.info("Starting module: " + this.name);
+        this.request(this);
+        setInterval(this.request, this.config.reload, this);
+    },
+
+    request: function(self) {
+
+        var request = {
+            id: self.identifier,
+            stopName: self.config.stopName,
+            timeOffset: self.config.timeOffset,
+            resultNum: self.config.resultNum
+        };
+        Log.log("Request: " + JSON.stringify(request));
+        self.sendSocketNotification("DVB-REQUEST", request);
+    },
+
+    socketNotificationReceived: function(notification, payload) {
+        if (notification === "DVB-RESPONSE" && payload.id === this.identifier) {
+            Log.log("Response: " + JSON.stringify(payload));
+            this.dvb_data = payload.connections;
+            this.updateDom();
+        }
+    }
 
 });
