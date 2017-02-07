@@ -13,10 +13,14 @@ module.exports = function(grunt) {
         jsbeautifier: {
             files: ["*.js"],
             options: {}
+        },
+        cssbeautifier: {
+            files: ["*.css"]
         }
     });
     grunt.loadNpmTasks("grunt-contrib-jshint");
     grunt.loadNpmTasks("grunt-contrib-csslint");
     grunt.loadNpmTasks("grunt-jsbeautifier");
-    grunt.registerTask("default", ["jshint", "csslint", "jsbeautifier"]);
+    grunt.loadNpmTasks('grunt-cssbeautifier');
+    grunt.registerTask("default", ["jshint", "csslint", "jsbeautifier", "cssbeautifier"]);
 };
