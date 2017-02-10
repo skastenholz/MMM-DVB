@@ -4,6 +4,7 @@ Module.register("MMM-DVB", {
         stopName: "Hauptbahnhof", // name of the stop
         timeOffset: 0, // how many minutes in the future
         resultNum: 5, // number of displayed results
+        lines: [], // what lines should be displayed
         reload: 1 * 60 * 1000 // reload interval, every minute
     },
 
@@ -147,7 +148,8 @@ Module.register("MMM-DVB", {
             id: self.identifier,
             stopName: self.config.stopName,
             timeOffset: self.config.timeOffset,
-            resultNum: self.config.resultNum
+            resultNum: self.config.resultNum,
+            lines: self.config.lines
         };
         Log.log("Request: " + JSON.stringify(request));
         self.sendSocketNotification("DVB-REQUEST", request);
