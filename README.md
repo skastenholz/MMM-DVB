@@ -38,6 +38,7 @@ Sample configuration entry for your `~/MagicMirror/config/config.js` with option
           timeOffset: 5,  // With how many minutes in advance should connections be displayed?
           resultNum: 5, // How many connections should be displayed?
 	  lines: ["1", "2"], // What lines should be displayed?
+	  directions: ["Striesen"], // What directions should be displayed?
           reload: 60000 // How often should the information be updated? (In milliseconds)
         }
     }
