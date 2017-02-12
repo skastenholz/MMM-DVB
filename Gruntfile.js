@@ -16,11 +16,23 @@ module.exports = function(grunt) {
         },
         cssbeautifier: {
             files: ["*.css"]
-        }
+        },
+        markdownlint: {
+            all: {
+                options: {
+                    config: {
+                        "default": true,
+                        "line-length": false
+                    }
+                },
+                src: ["*.md"]
+            }
+        },
     });
     grunt.loadNpmTasks("grunt-contrib-jshint");
     grunt.loadNpmTasks("grunt-contrib-csslint");
     grunt.loadNpmTasks("grunt-jsbeautifier");
     grunt.loadNpmTasks('grunt-cssbeautifier');
-    grunt.registerTask("default", ["jshint", "csslint", "jsbeautifier", "cssbeautifier"]);
+    grunt.loadNpmTasks("grunt-markdownlint");
+    grunt.registerTask("default", ["jshint", "csslint", "jsbeautifier", "cssbeautifier", "markdownlint"]);
 };

@@ -1,17 +1,20 @@
 # MMM-DVB  [![Build](https://travis-ci.org/skastenholz/MMM-DVB.svg)](https://travis-ci.org/skastenholz/MMM-DVB)
-<B>Station monitor</B> for the <B>Dresden local transport (DVB)</B> bus, tram and train system.<P>
 
-This module is an extension of the [MagicMirror<sup>2</sup>](https://github.com/MichMich/MagicMirror) project by [MichMich](https://github.com/MichMich/).
+**Station monitor** for the **Dresden local transport (DVB)** bus, tram and train system.
+
+This module is an extension of the [MagicMirror^2^](https://github.com/MichMich/MagicMirror) project by [MichMich](https://github.com/MichMich/).
 
 ![English version](screenshot_en.png)
 
 ## Installation
+
 1. Navigate into your MagicMirror's `modules` folder.
-2. Execute `git clone https://github.com/skastenholz/MMM-DVB.git`.
-3. Execute `cd MMM-DVB`.
-3. Execute `npm install`.
+1. Execute `git clone https://github.com/skastenholz/MMM-DVB.git`.
+1. Execute `cd MMM-DVB`.
+1. Execute `npm install`.
 
 ## Configuration
+
 Sample minimum configuration entry for your `~/MagicMirror/config/config.js`:
 
 ```javascript
@@ -42,9 +45,11 @@ Sample configuration entry for your `~/MagicMirror/config/config.js` with option
 ```
 
 ## Dependencies
-  * npm
-  * [dvbjs](https://www.npmjs.com/package/dvbjs)
-  
+
+* npm
+* [dvbjs](https://www.npmjs.com/package/dvbjs)
+
 ## Acknowledgements
-  * [MagicMirror<sup>2</sup>](https://github.com/MichMich/MagicMirror)
-  * [MMM-KVV](https://github.com/yo-less/MMM-KVV)
+
+* [MagicMirror^2^](https://github.com/MichMich/MagicMirror)
+* [MMM-KVV](https://github.com/yo-less/MMM-KVV)
