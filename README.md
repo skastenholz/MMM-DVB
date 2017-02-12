@@ -2,7 +2,7 @@
 
 **Station monitor** for the **Dresden local transport (DVB)** bus, tram and train system.
 
-This module is an extension of the [MagicMirror^2^](https://github.com/MichMich/MagicMirror) project by [MichMich](https://github.com/MichMich/).
+This module is an extension of the [MagicMirror²](https://github.com/MichMich/MagicMirror) project by [MichMich](https://github.com/MichMich/).
 
 ![English version](screenshot_en.png)
 
@@ -51,5 +51,5 @@ Sample configuration entry for your `~/MagicMirror/config/config.js` with option
 
 ## Acknowledgements
 
-* [MagicMirror^2^](https://github.com/MichMich/MagicMirror)
+* [MagicMirror²](https://github.com/MichMich/MagicMirror)
 * [MMM-KVV](https://github.com/yo-less/MMM-KVV)
