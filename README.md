@@ -14,36 +14,32 @@ This module is an extension of the [MagicMirror<sup>2</sup>](https://github.com/
 ## Configuration
 Sample minimum configuration entry for your `~/MagicMirror/config/config.js`:
 
-    ...
-    
-    {
-        module: 'MMM-DVB',
-        position: 'top_left',
-        config: {
-			stopName: 'Hauptbahnhof',		// Which stop would you like to have displayed?			
-        }
-    }
-    
-    ...
+```javascript
+{
+   module: 'MMM-DVB',
+   position: 'top_left',
+   config: {
+      stopName: 'Hauptbahnhof' // Which stop would you like to have displayed?
+   }
+}
+```
 
 Sample configuration entry for your `~/MagicMirror/config/config.js` with optional parameters:
 
-    ...
-    
-    {
-        module: 'MMM-DVB',
-        position: 'top_left',
-        config: {
-          stopName: 'Hauptbahnhof', // Which stop would you like to have displayed?
-          timeOffset: 5,  // With how many minutes in advance should connections be displayed?
-          resultNum: 5, // How many connections should be displayed?
-	  lines: ["1", "2"], // What lines should be displayed?
-	  directions: ["Striesen"], // What directions should be displayed?
-          reload: 60000 // How often should the information be updated? (In milliseconds)
-        }
-    }
-    
-    ...
+```javascript
+{
+   module: 'MMM-DVB',
+   position: 'top_left',
+   config: {
+      stopName: 'Hauptbahnhof', // Which stop would you like to have displayed?
+      timeOffset: 5,  // With how many minutes in advance should connections be displayed?
+      resultNum: 5, // How many connections should be displayed?
+      lines: ["1", "2"], // What lines should be displayed?
+      directions: ["Striesen"], // What directions should be displayed?
+      reload: 60000 // How often should the information be updated? (In milliseconds)
+   }
+}
+```
 
 ## Dependencies
   * npm
