@@ -6,7 +6,8 @@ Module.register("MMM-DVB", {
         resultNum: 5, // number of displayed results
         lines: [], // what lines should be displayed
         directions: [], // what destinations should be displayed
-        reload: 1 * 60 * 1000 // reload interval, every minute
+        reload: 1 * 60 * 1000, // reload interval, every minute
+	noTableHeader: false // suppress table header if true
     },
 
     getTranslations: function() {
@@ -43,8 +44,10 @@ Module.register("MMM-DVB", {
         table.border = '0';
 
         if (connections.length > 0) {
-            table.appendChild(this.connectionTableHeaderRow());
-            table.appendChild(this.connectionTableSpacerRow());
+	    if (!this.config.noTableHeader) {
+		table.appendChild(this.connectionTableHeaderRow());
+		table.appendChild(this.connectionTableSpacerRow());
+	    }
             var self = this;
             connections.forEach(function(connection) {
                 table.appendChild(self.connectionTableConnectionRow(connection));
