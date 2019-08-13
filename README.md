@@ -40,6 +40,7 @@ Sample configuration entry for your `~/MagicMirror/config/config.js` with option
       lines: ["1", "2"], // What lines should be displayed?
       directions: ["Striesen"], // What directions should be displayed?
       reload: 60000 // How often should the information be updated? (In milliseconds)
+      noTableHeader: false // suppress table header if true
    }
 }
 ```

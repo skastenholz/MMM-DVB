@@ -32,7 +32,7 @@
     "grunt-contrib-jshint": "^2.1.0",
     "grunt-cssbeautifier": "^0.1.2",
     "grunt-jsbeautifier": "^0.2.13",
-"grunt-markdownlint": "^2.6.0",
+	"grunt-markdownlint": "^2.6.0",
     "time-grunt": "^2.0.0"
   }
 }
