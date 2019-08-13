@@ -3,7 +3,10 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON("package.json"),
         jshint: {
-            all: ['*.js']
+            all: ['*.js'],
+            options: {
+                "esversion": 6
+            }
         },
         csslint: {
             strict: {
