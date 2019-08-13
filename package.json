@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/skastenholz/MMM-DVB#readme",
   "dependencies": {
-    "dvbjs": "^4.2.1"
+    "dvbjs": "^5.1.0"
   },
   "devDependencies": {
     "grunt": "~0.4.5",
