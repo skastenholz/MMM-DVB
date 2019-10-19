@@ -93,6 +93,7 @@ Module.register("MMM-DVB", {
         connectionRow.appendChild(line);
 
         var destination = document.createElement("td");
+        destination.className = "destination";
         destination.innerHTML = connection.direction;
         connectionRow.appendChild(destination);
 
