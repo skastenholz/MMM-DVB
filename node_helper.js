@@ -1,23 +1,42 @@
 var dvb = require('dvbjs');
 var NodeHelper = require("node_helper");
+const Log = require("logger");
 
 module.exports = NodeHelper.create({
 
+    start: function() {
+        Log.log("Starting node helper for: " + this.name);
+        this.stopID = "";
+    },
+    monitor: function(payload) {
+        var self = this;
+        dvb.monitor(this.stopID, payload.timeOffset, this.numberOfRequestedResults(payload)).then((data) => {
+            console.log('Monitoring stop departures...');
+            var response = {
+                id: payload.id,
+                connections: self.connectionsToBeDisplayed(data, payload)
+            };
+            self.sendSocketNotification("DVB-RESPONSE", response);
+        }); 
+    },
+    findStop: function(payload) {
+        var self = this;
+        console.log('Searching stop ID...');
+        dvb.findStop(payload.stopName).then((data) => {
+            if (Array.isArray(data) && data.length > 0) {
+                self.stopID = data[0].id;
+                self.monitor(payload);
+            }
+        });
+    },
     socketNotificationReceived: function(notification, payload) {
         if (notification === 'DVB-REQUEST') {
             var self = this;
-            dvb.findStop(payload.stopName).then((data) => {
-                if (Array.isArray(data) && data.length > 0) {
-                    var stopID = data[0].id;
-                    dvb.monitor(stopID, payload.timeOffset, this.numberOfRequestedResults(payload)).then((data) => {
-                        var response = {
-                            id: payload.id,
-                            connections: self.connectionsToBeDisplayed(data, payload)
-                        };
-                        self.sendSocketNotification("DVB-RESPONSE", response);
-                    });
-                }
-            });
+            if (!self.stopID) {
+                self.findStop(payload);
+            } else {
+                self.monitor(payload);
+            };   
         }
     },
     numberOfRequestedResults: function(payload) {
