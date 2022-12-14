@@ -6,11 +6,11 @@ module.exports = NodeHelper.create({
 
     start: function() {
         Log.log("Starting node helper for: " + this.name);
-        this.stopID = "";
+        this.stop = {};
     },
     monitor: function(payload) {
         var self = this;
-        dvb.monitor(this.stopID, payload.timeOffset, this.numberOfRequestedResults(payload)).then((data) => {
+        dvb.monitor(this.stop.id, payload.timeOffset, this.numberOfRequestedResults(payload)).then((data) => {
             console.log('Monitoring stop departures...');
             var response = {
                 id: payload.id,
@@ -24,7 +24,8 @@ module.exports = NodeHelper.create({
         console.log('Searching stop ID...');
         dvb.findStop(payload.stopName).then((data) => {
             if (Array.isArray(data) && data.length > 0) {
-                self.stopID = data[0].id;
+                self.stop.id = data[0].id;
+                self.stop.name = payload.stopName;
                 self.monitor(payload);
             }
         });
@@ -32,7 +33,7 @@ module.exports = NodeHelper.create({
     socketNotificationReceived: function(notification, payload) {
         if (notification === 'DVB-REQUEST') {
             var self = this;
-            if (!self.stopID) {
+            if (!self.stop.id || self.stop.name != payload.stopName) {
                 self.findStop(payload);
             } else {
                 self.monitor(payload);
