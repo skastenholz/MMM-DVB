@@ -11,7 +11,6 @@ module.exports = NodeHelper.create({
     monitor: function(payload) {
         var self = this;
         dvb.monitor(this.stop.id, payload.timeOffset, this.numberOfRequestedResults(payload)).then((data) => {
-            console.log('Monitoring stop departures...');
             var response = {
                 id: payload.id,
                 connections: self.connectionsToBeDisplayed(data, payload)
@@ -21,7 +20,7 @@ module.exports = NodeHelper.create({
     },
     findStop: function(payload) {
         var self = this;
-        console.log('Searching stop ID...');
+        Log.log("Searching stop ID for: " + payload.stopName);
         dvb.findStop(payload.stopName).then((data) => {
             if (Array.isArray(data) && data.length > 0) {
                 self.stop.id = data[0].id;
