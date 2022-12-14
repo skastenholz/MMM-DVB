@@ -142,13 +142,11 @@ Module.register("MMM-DVB", {
     },
 
     start: function() {
-        Log.info("Starting module: " + this.name);
-        this.request(this);
-        setInterval(this.request, this.config.reload, this);
+        Log.info("Starting module: " + this.identifier);
+        this.sendSocketNotification("REGISTER-MODULE", this.identifier);
     },
 
     request: function(self) {
-
         var request = {
             id: self.identifier,
             stopName: self.config.stopName,
@@ -162,7 +160,11 @@ Module.register("MMM-DVB", {
     },
 
     socketNotificationReceived: function(notification, payload) {
-        if (notification === "DVB-RESPONSE" && payload.id === this.identifier) {
+        if (notification === "REGISTER-ACK" && payload === this.identifier) {
+            Log.log("Module registered: " + payload);
+            this.request(this);
+            var interval = setInterval(this.request, this.config.reload, this);
+        } else if (notification === "DVB-RESPONSE" && payload.id === this.identifier) {
             Log.log("Response: " + JSON.stringify(payload));
             this.dvb_data = payload.connections;
             this.updateDom();

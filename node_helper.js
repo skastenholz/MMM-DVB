@@ -10,7 +10,7 @@ module.exports = NodeHelper.create({
     },
     monitor: function(payload) {
         var self = this;
-        dvb.monitor(this.stop.id, payload.timeOffset, this.numberOfRequestedResults(payload)).then((data) => {
+        dvb.monitor(this.stop[payload.id].id, payload.timeOffset, this.numberOfRequestedResults(payload)).then((data) => {
             var response = {
                 id: payload.id,
                 connections: self.connectionsToBeDisplayed(data, payload)
@@ -23,16 +23,21 @@ module.exports = NodeHelper.create({
         Log.log("Searching stop ID for: " + payload.stopName);
         dvb.findStop(payload.stopName).then((data) => {
             if (Array.isArray(data) && data.length > 0) {
-                self.stop.id = data[0].id;
-                self.stop.name = payload.stopName;
+                self.stop[payload.id].id = data[0].id;
+                self.stop[payload.id].name = payload.stopName;
                 self.monitor(payload);
             }
         });
     },
     socketNotificationReceived: function(notification, payload) {
-        if (notification === 'DVB-REQUEST') {
-            var self = this;
-            if (!self.stop.id || self.stop.name != payload.stopName) {
+        var self = this;
+        if (notification === 'REGISTER-MODULE') {
+            Log.log("Registration request received from: " + payload);
+            self.stop[payload] = {id:{}, name:{}};
+            self.sendSocketNotification("REGISTER-ACK", payload);
+        } else if (notification === 'DVB-REQUEST') {
+            Log.log("Received request from: " + payload.id);
+            if (!self.stop[payload.id].id || self.stop[payload.id].name != payload.stopName) {
                 self.findStop(payload);
             } else {
                 self.monitor(payload);
