@@ -7,7 +7,8 @@ Module.register("MMM-DVB", {
         lines: [], // what lines should be displayed
         directions: [], // what destinations should be displayed
         reload: 1 * 60 * 1000, // reload interval, every minute
-        noTableHeader: false // suppress table header if true
+        noTableHeader: false, // suppress table header if true
+        showRelative: true //show relative time to departure from the current moment (if less than 15 minutes)
     },
 
     getTranslations: function() {
@@ -68,7 +69,7 @@ Module.register("MMM-DVB", {
 
     connectionTableHeader: function(caption) {
         var header = document.createElement("th");
-        header.className = caption;
+        header.className = caption.toLowerCase();
         header.innerHTML = this.translate(caption);
         return header;
     },
@@ -106,18 +107,17 @@ Module.register("MMM-DVB", {
     },
 
     arrivalTime: function(connection) {
-
-        if (connection.arrivalTimeRelative === 0) {
-            return this.translate("NOW");
-        } else if (connection.arrivalTimeRelative === 1) {
-            return 'In ' + connection.arrivalTimeRelative + ' ' + this.translate("MINUTE");
-        } else if (connection.arrivalTimeRelative <= 15) {
-            return 'In ' + connection.arrivalTimeRelative + ' ' + this.translate("MINUTES");
-        } else {
+        if (connection.arrivalTimeRelative > 15 || !this.config.showRelative) {
             var arrival = new Date(connection.arrivalTime);
             var arrivalHours = ('0' + arrival.getHours()).slice(-2);
             var arrivalMinutes = ('0' + arrival.getMinutes()).slice(-2);
             return arrivalHours + ':' + arrivalMinutes + ' ' + this.translate("TIME");
+        } else if (connection.arrivalTimeRelative === 0) {
+            return this.translate("NOW");
+        } else if (connection.arrivalTimeRelative === 1) {
+            return 'In ' + connection.arrivalTimeRelative + ' ' + this.translate("MINUTE");
+        } else {
+            return 'In ' + connection.arrivalTimeRelative + ' ' + this.translate("MINUTES");
         }
     },
 
