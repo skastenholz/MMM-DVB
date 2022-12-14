@@ -17,7 +17,7 @@ module.exports = NodeHelper.create({
                 connections: self.connectionsToBeDisplayed(data, payload)
             };
             self.sendSocketNotification("DVB-RESPONSE", response);
-        }); 
+        });
     },
     findStop: function(payload) {
         var self = this;
@@ -37,7 +37,7 @@ module.exports = NodeHelper.create({
                 self.findStop(payload);
             } else {
                 self.monitor(payload);
-            };   
+            }
         }
     },
     numberOfRequestedResults: function(payload) {
