@@ -37,7 +37,7 @@ module.exports = NodeHelper.create({
                     id: {},
                     name: {}
                 };
-                self.sendSocketNotification("REGISTER-ACK", payload);    
+                self.sendSocketNotification("REGISTER-ACK", payload);
                 break;
             case 'DVB-REQUEST':
                 if (!self.stop[payload.id].id || self.stop[payload.id].name != payload.stopName) {

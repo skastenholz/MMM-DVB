@@ -8,12 +8,12 @@
     padding-bottom: 5px;
 }
 
-.MMM-DVB td.destination {
+.MMM-DVB .destination {
     color: white;
     font-weight: normal;
 }
 
-.MMM-DVB td.line {
+.MMM-DVB .line {
     border-collapse: separate;
     border-spacing: 10px 0;
     color: white;
@@ -22,7 +22,7 @@
     width: 50px;
 }
 
-.MMM-DVB td.departure {
+.MMM-DVB .departure {
     color: white;
     font-weight: normal;
     padding-left: 10px;
@@ -34,6 +34,8 @@
     font-weight: normal;
 }
 
-.MMM-DVB th.departure {
+.MMM-DVB .departure {
     text-align: right;
 }
+
+
