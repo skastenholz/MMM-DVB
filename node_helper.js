@@ -31,18 +31,21 @@ module.exports = NodeHelper.create({
     },
     socketNotificationReceived: function(notification, payload) {
         var self = this;
-        if (notification === 'REGISTER-MODULE') {
-            self.stop[payload] = {
-                id: {},
-                name: {}
-            };
-            self.sendSocketNotification("REGISTER-ACK", payload);
-        } else if (notification === 'DVB-REQUEST') {
-            if (!self.stop[payload.id].id || self.stop[payload.id].name != payload.stopName) {
-                self.findStop(payload);
-            } else {
-                self.monitor(payload);
-            }
+        switch (notification) {
+            case 'REGISTER-MODULE':
+                self.stop[payload] = {
+                    id: {},
+                    name: {}
+                };
+                self.sendSocketNotification("REGISTER-ACK", payload);    
+                break;
+            case 'DVB-REQUEST':
+                if (!self.stop[payload.id].id || self.stop[payload.id].name != payload.stopName) {
+                    self.findStop(payload);
+                } else {
+                    self.monitor(payload);
+                }
+                break;
         }
     },
     numberOfRequestedResults: function(payload) {
