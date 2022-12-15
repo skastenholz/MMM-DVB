@@ -32,7 +32,10 @@ module.exports = NodeHelper.create({
     socketNotificationReceived: function(notification, payload) {
         var self = this;
         if (notification === 'REGISTER-MODULE') {
-            self.stop[payload] = {id:{}, name:{}};
+            self.stop[payload] = {
+                id: {},
+                name: {}
+            };
             self.sendSocketNotification("REGISTER-ACK", payload);
         } else if (notification === 'DVB-REQUEST') {
             if (!self.stop[payload.id].id || self.stop[payload.id].name != payload.stopName) {
